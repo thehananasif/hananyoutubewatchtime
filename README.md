@@ -1,16 +1,12 @@
-# Welcome to your Lovable project
+# YouTube Watchtime Software
 
 ## Project info
 
-**URL**: https://lovable.dev/projects/d09c8731-5b7c-4b73-84e8-b614e20bbb87
+**URL**: https://proxy-video-loopie.lovable.app/
 
 ## How can I edit this code?
 
 There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/d09c8731-5b7c-4b73-84e8-b614e20bbb87) and start prompting.
 
 Changes made via Lovable will be committed automatically to this repo.
 
