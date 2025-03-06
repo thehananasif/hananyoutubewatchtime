@@ -73,12 +73,12 @@ const VideoPlayer = ({ videoId, proxy, onVideoEnded, isActive }: VideoPlayerProp
   }
 
   return (
-    <div className="relative w-full h-96 rounded-lg overflow-hidden animate-fade-in">
+    <div className="relative w-full h-96 overflow-hidden">
       {loading && (
-        <div className="absolute inset-0 flex items-center justify-center bg-background/80 z-10">
+        <div className="absolute inset-0 flex items-center justify-center bg-black/80 backdrop-blur-sm z-10">
           <div className="flex flex-col items-center">
-            <Loader className="w-8 h-8 text-primary animate-spin" />
-            <p className="mt-4 text-sm">
+            <Loader className="w-8 h-8 text-white animate-spin" />
+            <p className="mt-4 text-sm font-light text-gray-300">
               {proxy ? `Connecting via proxy: ${proxy}` : "Loading video..."}
             </p>
           </div>
@@ -86,10 +86,10 @@ const VideoPlayer = ({ videoId, proxy, onVideoEnded, isActive }: VideoPlayerProp
       )}
       
       {error && (
-        <div className="absolute inset-0 flex items-center justify-center bg-destructive/10 z-10">
-          <div className="bg-card p-6 rounded-lg shadow-lg max-w-md text-center">
-            <p className="text-destructive font-medium">{error}</p>
-            <p className="mt-2 text-sm text-muted-foreground">
+        <div className="absolute inset-0 flex items-center justify-center bg-red-500/10 backdrop-blur-sm z-10">
+          <div className="bg-black/80 p-6 rounded-lg backdrop-blur-sm border border-white/10">
+            <p className="text-red-400 font-medium">{error}</p>
+            <p className="mt-2 text-sm text-gray-400">
               Switching to the next proxy...
             </p>
           </div>
@@ -98,7 +98,7 @@ const VideoPlayer = ({ videoId, proxy, onVideoEnded, isActive }: VideoPlayerProp
       
       <iframe
         ref={iframeRef}
-        className="w-full h-full"
+        className="w-full h-full bg-black"
         title="YouTube Video Player"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen

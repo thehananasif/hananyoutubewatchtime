@@ -1,4 +1,3 @@
-
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -22,3 +21,11 @@ export function extractVideoId(url: string): string | null {
 
   return null;
 }
+
+// Add these theme values
+export const themeColors = {
+  deepBlack: "#000000",
+  matteWhite: "#FFFFFF",
+  subtleGray: "#333333",
+  lightGray: "#666666"
+} as const;

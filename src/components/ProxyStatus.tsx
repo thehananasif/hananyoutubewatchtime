@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
@@ -18,7 +17,6 @@ const ProxyStatus = ({
 }: ProxyStatusProps) => {
   const [progress, setProgress] = useState(0);
   
-  // Simulate a progress bar for the current video session
   useEffect(() => {
     if (!isRunning) {
       setProgress(0);
@@ -52,28 +50,30 @@ const ProxyStatus = ({
   };
   
   return (
-    <div className="bg-card border rounded-lg p-4 animate-slide-up">
-      <div className="flex flex-col space-y-4">
-        <div className="flex items-center justify-between">
-          <h3 className="text-sm font-medium">Active Proxy</h3>
-          <Badge variant="outline" className="bg-primary/10 text-xs">
-            {activeIndex + 1} of {proxyList.length}
-          </Badge>
+    <div className="space-y-4">
+      <div className="flex items-center justify-between">
+        <h3 className="text-sm font-light">Active Proxy</h3>
+        <Badge variant="outline" className="bg-white/5 text-xs border-white/20">
+          {activeIndex + 1} of {proxyList.length}
+        </Badge>
+      </div>
+      
+      <div className="p-3 bg-white/5 rounded-md backdrop-blur-sm border border-white/10">
+        <p className="text-sm font-mono text-gray-300">
+          {currentProxy ? truncateProxy(currentProxy) : "Direct connection"}
+        </p>
+      </div>
+      
+      <div className="space-y-2">
+        <div className="flex justify-between text-xs text-gray-400">
+          <span>Session progress</span>
+          <span>{Math.round(progress)}%</span>
         </div>
-        
-        <div className="p-3 bg-secondary rounded-md">
-          <p className="text-sm font-mono">
-            {currentProxy ? truncateProxy(currentProxy) : "Direct connection"}
-          </p>
-        </div>
-        
-        <div className="space-y-2">
-          <div className="flex justify-between text-xs">
-            <span>Session progress</span>
-            <span>{Math.round(progress)}%</span>
-          </div>
-          <Progress value={progress} className="h-1" />
-        </div>
+        <Progress 
+          value={progress} 
+          className="h-0.5 bg-white/5"
+          indicatorClassName="bg-white transition-all duration-300" 
+        />
       </div>
     </div>
   );
