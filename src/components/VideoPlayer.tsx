@@ -67,9 +67,9 @@ const VideoPlayer = ({ videoId, proxy, onVideoEnded, isActive }: VideoPlayerProp
   useEffect(() => {
     if (!isActive || error || loading) return;
     
-    // For demonstration, simulate the video ending after a fixed time (30 seconds)
+    // For demonstration, simulate the video ending after a fixed time (1 hour)
     // This ensures the video fully completes before changing proxy
-    const videoLength = 30000; // 30 seconds for each video
+    const videoLength = 3600000; // 1 hour in milliseconds
     
     videoTimeoutRef.current = setTimeout(() => {
       console.log("Video playback complete");

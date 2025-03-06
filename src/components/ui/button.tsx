@@ -1,3 +1,4 @@
+
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
@@ -9,11 +10,11 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/90",
+        default: "bg-gradient-to-r from-gray-900 to-black text-white hover:from-black hover:to-gray-800 shadow-lg relative overflow-hidden before:absolute before:inset-0 before:w-full before:h-full before:bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.12),transparent_40%)] after:absolute after:bottom-0 after:h-1/3 after:w-full after:bg-gradient-to-t after:from-white/[0.08] after:to-transparent after:opacity-60 border border-white/10",
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         outline:
-          "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+          "border border-white/20 bg-black text-white hover:bg-black/80 relative overflow-hidden before:absolute before:inset-0 before:w-full before:h-full before:bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.12),transparent_40%)] after:absolute after:bottom-0 after:h-1/3 after:w-full after:bg-gradient-to-t after:from-white/[0.08] after:to-transparent after:opacity-60",
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",

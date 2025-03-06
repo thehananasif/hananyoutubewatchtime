@@ -70,30 +70,34 @@ const ControlPanel = ({
         <Button
           onClick={onToggleRunning}
           disabled={isButtonDisabled}
-          className={`flex-1 transition-all duration-300 group relative overflow-hidden ${
+          className={`flex-1 transition-all duration-300 relative overflow-hidden ${
             isRunning 
-              ? "bg-white/20 hover:bg-white/30 text-white" 
-              : "bg-white text-black hover:bg-white/90"
-          } backdrop-blur-sm border border-white/20 before:absolute before:inset-0 before:w-full before:h-full before:bg-gradient-to-r before:from-transparent before:via-white/30 before:to-transparent before:translate-x-[-200%] hover:before:animate-[shine_1.5s_ease-in-out]`}
+              ? "bg-gradient-to-r from-gray-800 to-black hover:from-gray-700 hover:to-gray-900 border border-white/10 text-white" 
+              : "bg-gradient-to-r from-gray-900 to-black hover:from-black hover:to-gray-800 border border-white/20 text-white"
+          } shadow-[0_4px_14px_0_rgba(0,0,0,0.5)] before:absolute before:inset-0 before:w-full before:h-full before:bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.12),transparent_40%)] after:absolute after:bottom-0 after:h-1/3 after:w-full after:bg-gradient-to-t after:from-white/[0.08] after:to-transparent after:opacity-60`}
         >
-          {isRunning ? (
-            <>
-              <Pause className="w-4 h-4 mr-2" />
-              Pause
-            </>
-          ) : (
-            <>
-              <Play className="w-4 h-4 mr-2" />
-              Start
-            </>
-          )}
+          <span className="relative z-10 flex items-center justify-center">
+            {isRunning ? (
+              <>
+                <Pause className="w-4 h-4 mr-2" />
+                Pause
+              </>
+            ) : (
+              <>
+                <Play className="w-4 h-4 mr-2" />
+                Start
+              </>
+            )}
+          </span>
         </Button>
         <Button
           onClick={onReset}
           variant="outline"
-          className="bg-white/5 text-white hover:bg-white/10 border-white/20 transition-all duration-300 relative overflow-hidden before:absolute before:inset-0 before:w-full before:h-full before:bg-gradient-to-r before:from-transparent before:via-white/30 before:to-transparent before:translate-x-[-200%] hover:before:animate-[shine_1.5s_ease-in-out]"
+          className="bg-black text-white border-white/20 hover:bg-black/80 transition-all duration-300 relative overflow-hidden shadow-[0_4px_14px_0_rgba(0,0,0,0.5)] before:absolute before:inset-0 before:w-full before:h-full before:bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.12),transparent_40%)] after:absolute after:bottom-0 after:h-1/3 after:w-full after:bg-gradient-to-t after:from-white/[0.08] after:to-transparent after:opacity-60"
         >
-          <RotateCcw className="w-4 h-4" />
+          <span className="relative z-10">
+            <RotateCcw className="w-4 h-4" />
+          </span>
         </Button>
       </div>
 
