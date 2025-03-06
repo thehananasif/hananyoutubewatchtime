@@ -46,18 +46,18 @@ const ControlPanel = ({
   const isButtonDisabled = !isValidUrl || proxiesCount === 0;
 
   return (
-    <div className="space-y-6 bg-card border rounded-lg p-6 animate-fade-in">
+    <div className="space-y-6 bg-black/30 backdrop-blur-md border border-white/10 rounded-lg p-6 animate-fade-in">
       <div className="space-y-2">
-        <Label htmlFor="video-url">YouTube Video URL</Label>
+        <Label htmlFor="video-url" className="text-white/90">YouTube Video URL</Label>
         <Input
           id="video-url"
           type="text"
           placeholder="https://www.youtube.com/watch?v=..."
           value={videoUrl}
           onChange={handleInputChange}
-          className={!videoUrl ? "" : isValidUrl ? "border-green-500" : "border-red-500"}
+          className={`bg-white/5 border-white/20 text-white focus:border-white/50 transition-all ${!videoUrl ? "" : isValidUrl ? "border-green-500/50" : "border-red-500/50"}`}
         />
-        <p className="text-xs text-muted-foreground">
+        <p className="text-xs text-gray-400">
           {!videoUrl
             ? "Paste a YouTube video URL"
             : isValidUrl
@@ -70,8 +70,11 @@ const ControlPanel = ({
         <Button
           onClick={onToggleRunning}
           disabled={isButtonDisabled}
-          className="flex-1 neo-button"
-          variant={isRunning ? "secondary" : "default"}
+          className={`flex-1 transition-all duration-300 group relative overflow-hidden ${
+            isRunning 
+              ? "bg-white/20 hover:bg-white/30 text-white" 
+              : "bg-white text-black hover:bg-white/90"
+          } backdrop-blur-sm border border-white/20 before:absolute before:inset-0 before:w-full before:h-full before:bg-gradient-to-r before:from-transparent before:via-white/30 before:to-transparent before:translate-x-[-200%] hover:before:animate-[shine_1.5s_ease-in-out]`}
         >
           {isRunning ? (
             <>
@@ -88,13 +91,13 @@ const ControlPanel = ({
         <Button
           onClick={onReset}
           variant="outline"
-          className="neo-button"
+          className="bg-white/5 text-white hover:bg-white/10 border-white/20 transition-all duration-300 relative overflow-hidden before:absolute before:inset-0 before:w-full before:h-full before:bg-gradient-to-r before:from-transparent before:via-white/30 before:to-transparent before:translate-x-[-200%] hover:before:animate-[shine_1.5s_ease-in-out]"
         >
           <RotateCcw className="w-4 h-4" />
         </Button>
       </div>
 
-      <div className="text-center text-sm text-muted-foreground">
+      <div className="text-center text-sm text-gray-400">
         {proxiesCount === 0 ? (
           <p>Upload a proxy list to get started</p>
         ) : (

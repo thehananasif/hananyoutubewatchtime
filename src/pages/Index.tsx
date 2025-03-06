@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import ProxyFileInput from "@/components/ProxyFileInput";
 import VideoPlayer from "@/components/VideoPlayer";
@@ -84,7 +85,7 @@ const Index = () => {
       <div className="max-w-6xl mx-auto space-y-8">
         <header className="text-center space-y-2">
           <h1 className="text-4xl font-light tracking-tight">
-            Proxy Video Looper
+            Hanan YouTube Watchtime
           </h1>
           <p className="text-gray-400 text-sm font-light">
             Automate YouTube video views through rotating proxies

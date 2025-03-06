@@ -86,9 +86,9 @@ const ProxyFileInput = ({ onProxiesLoaded }: ProxyFileInputProps) => {
     <div
       className={`relative w-full p-8 border-2 border-dashed rounded-lg transition-all duration-200 ease-in-out cursor-pointer ${
         isDragging 
-          ? "border-primary bg-secondary/50" 
-          : "border-border bg-background"
-      } ${fileName ? "animate-scale-in" : ""}`}
+          ? "border-white/70 bg-white/5" 
+          : "border-white/30 bg-white/5"
+      } ${fileName ? "animate-scale-in" : ""} hover:border-white/50 hover:shadow-[0_0_15px_rgba(255,255,255,0.1)]`}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
@@ -102,14 +102,14 @@ const ProxyFileInput = ({ onProxiesLoaded }: ProxyFileInputProps) => {
         className="hidden"
       />
       <div className="flex flex-col items-center justify-center space-y-4">
-        <div className="p-3 rounded-full bg-secondary">
-          <UploadCloud className="w-8 h-8 text-primary" />
+        <div className="p-3 rounded-full bg-white/10 backdrop-blur-sm transition-all duration-300 hover:bg-white/20">
+          <UploadCloud className="w-8 h-8 text-white" />
         </div>
         <div className="text-center">
           <p className="text-lg font-medium">
             {fileName ? fileName : "Drag & drop your proxy list"}
           </p>
-          <p className="text-sm text-muted-foreground mt-1">
+          <p className="text-sm text-gray-400 mt-1">
             {fileName
               ? "File loaded! Click to change."
               : "or click to browse (TXT, CSV, LIST)"}
