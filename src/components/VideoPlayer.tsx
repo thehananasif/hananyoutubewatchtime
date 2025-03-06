@@ -13,7 +13,9 @@ interface VideoPlayerProps {
 const VideoPlayer = ({ videoId, proxy, onVideoEnded, isActive }: VideoPlayerProps) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [videoCompleted, setVideoCompleted] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);
+  const videoTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // This is a placeholder for actual proxy handling
   // In a real implementation, you would need a backend service to handle the proxy
@@ -28,6 +30,7 @@ const VideoPlayer = ({ videoId, proxy, onVideoEnded, isActive }: VideoPlayerProp
     
     setLoading(true);
     setError(null);
+    setVideoCompleted(false);
 
     const embedUrl = getProxyEmbedUrl(videoId, proxy);
     if (iframeRef.current) {
@@ -51,21 +54,35 @@ const VideoPlayer = ({ videoId, proxy, onVideoEnded, isActive }: VideoPlayerProp
       }
     }, 2000);
 
-    return () => clearTimeout(timeout);
+    return () => {
+      clearTimeout(timeout);
+      if (videoTimeoutRef.current) {
+        clearTimeout(videoTimeoutRef.current);
+        videoTimeoutRef.current = null;
+      }
+    };
   }, [videoId, proxy, isActive]);
 
   // Simulate video completion
   useEffect(() => {
     if (!isActive || error || loading) return;
     
-    // For demonstration, simulate the video ending after a random time (5-15 seconds)
-    const videoLength = 5000 + Math.random() * 10000;
-    const timeout = setTimeout(() => {
+    // For demonstration, simulate the video ending after a fixed time (30 seconds)
+    // This ensures the video fully completes before changing proxy
+    const videoLength = 30000; // 30 seconds for each video
+    
+    videoTimeoutRef.current = setTimeout(() => {
       console.log("Video playback complete");
+      setVideoCompleted(true);
       onVideoEnded();
     }, videoLength);
     
-    return () => clearTimeout(timeout);
+    return () => {
+      if (videoTimeoutRef.current) {
+        clearTimeout(videoTimeoutRef.current);
+        videoTimeoutRef.current = null;
+      }
+    };
   }, [isActive, error, loading]);
 
   if (!isActive) {

@@ -26,16 +26,21 @@ const ProxyStatus = ({
     }
     
     setProgress(0);
+    
+    // Fixed time for video playback is 30 seconds, so progress should reach 100% in 30 seconds
+    const totalTime = 30000; // 30 seconds
     const interval = setInterval(() => {
       setProgress(prev => {
-        const newProgress = prev + 0.5;
+        // Increment should complete in 30 seconds
+        const increment = 100 / (totalTime / 100); // 100% divided by (totalTime/updateInterval)
+        const newProgress = prev + increment;
         if (newProgress >= 100) {
           clearInterval(interval);
           return 100;
         }
         return newProgress;
       });
-    }, 100);
+    }, 100); // Update every 100ms
     
     return () => clearInterval(interval);
   }, [currentProxy, isRunning]);
