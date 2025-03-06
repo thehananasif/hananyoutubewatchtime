@@ -1,6 +1,8 @@
+
 import { useState, useEffect } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
+import { cn } from "@/lib/utils";
 
 interface ProxyStatusProps {
   currentProxy: string | null;
@@ -72,7 +74,6 @@ const ProxyStatus = ({
         <Progress 
           value={progress} 
           className="h-0.5 bg-white/5"
-          indicatorClassName="bg-white transition-all duration-300" 
         />
       </div>
     </div>
