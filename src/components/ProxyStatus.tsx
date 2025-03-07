@@ -9,13 +9,15 @@ interface ProxyStatusProps {
   proxyList: string[];
   activeIndex: number;
   isRunning: boolean;
+  duration?: number; // Duration in milliseconds, optional
 }
 
 const ProxyStatus = ({ 
   currentProxy, 
   proxyList, 
   activeIndex, 
-  isRunning 
+  isRunning,
+  duration = 3600000 // Default to 1 hour if not specified 
 }: ProxyStatusProps) => {
   const [progress, setProgress] = useState(0);
   
@@ -27,11 +29,11 @@ const ProxyStatus = ({
     
     setProgress(0);
     
-    // Fixed time for video playback is 1 hour, so progress should reach 100% in 1 hour
-    const totalTime = 3600000; // 1 hour in milliseconds
+    // Use configurable duration parameter
+    const totalTime = duration; // in milliseconds
     const interval = setInterval(() => {
       setProgress(prev => {
-        // Increment should complete in 1 hour
+        // Increment should complete in specified duration
         const increment = 100 / (totalTime / 1000); // 100% divided by (totalTime/updateInterval)
         const newProgress = prev + increment;
         if (newProgress >= 100) {
@@ -40,10 +42,10 @@ const ProxyStatus = ({
         }
         return newProgress;
       });
-    }, 1000); // Update every 1 second (less frequent updates for long duration)
+    }, 1000); // Update every 1 second
     
     return () => clearInterval(interval);
-  }, [currentProxy, isRunning]);
+  }, [currentProxy, isRunning, duration]);
   
   if (!isRunning || proxyList.length === 0) {
     return null;
@@ -54,6 +56,19 @@ const ProxyStatus = ({
       return proxy.substring(0, 25) + "...";
     }
     return proxy;
+  };
+  
+  // Format duration for display
+  const getDurationText = () => {
+    const seconds = Math.floor((duration / 1000) % 60);
+    const minutes = Math.floor((duration / (1000 * 60)) % 60);
+    const hours = Math.floor(duration / (1000 * 60 * 60));
+    
+    return hours > 0 
+      ? `${hours}h ${minutes}m` 
+      : minutes > 0 
+        ? `${minutes}m ${seconds}s` 
+        : `${seconds}s`;
   };
   
   return (
@@ -73,7 +88,7 @@ const ProxyStatus = ({
       
       <div className="space-y-2">
         <div className="flex justify-between text-xs text-gray-400">
-          <span>Session progress</span>
+          <span>Session progress ({getDurationText()})</span>
           <span>{Math.round(progress)}%</span>
         </div>
         <Progress 

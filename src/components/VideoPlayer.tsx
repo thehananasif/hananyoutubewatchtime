@@ -8,9 +8,16 @@ interface VideoPlayerProps {
   proxy: string | null;
   onVideoEnded: () => void;
   isActive: boolean;
+  duration?: number; // Duration in milliseconds, optional with default
 }
 
-const VideoPlayer = ({ videoId, proxy, onVideoEnded, isActive }: VideoPlayerProps) => {
+const VideoPlayer = ({ 
+  videoId, 
+  proxy, 
+  onVideoEnded, 
+  isActive,
+  duration = 3600000 // Default to 1 hour if not specified
+}: VideoPlayerProps) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [videoCompleted, setVideoCompleted] = useState(false);
@@ -67,15 +74,14 @@ const VideoPlayer = ({ videoId, proxy, onVideoEnded, isActive }: VideoPlayerProp
   useEffect(() => {
     if (!isActive || error || loading) return;
     
-    // For demonstration, simulate the video ending after a fixed time (1 hour)
-    // This ensures the video fully completes before changing proxy
-    const videoLength = 3600000; // 1 hour in milliseconds
+    // User-configurable duration for when the proxy should change
+    console.log(`Setting video playback duration to: ${duration/1000} seconds`);
     
     videoTimeoutRef.current = setTimeout(() => {
       console.log("Video playback complete");
       setVideoCompleted(true);
       onVideoEnded();
-    }, videoLength);
+    }, duration);
     
     return () => {
       if (videoTimeoutRef.current) {
@@ -83,11 +89,24 @@ const VideoPlayer = ({ videoId, proxy, onVideoEnded, isActive }: VideoPlayerProp
         videoTimeoutRef.current = null;
       }
     };
-  }, [isActive, error, loading]);
+  }, [isActive, error, loading, duration]);
 
   if (!isActive) {
     return null;
   }
+
+  // Calculate human-readable duration for display
+  const getDurationText = () => {
+    const seconds = Math.floor((duration / 1000) % 60);
+    const minutes = Math.floor((duration / (1000 * 60)) % 60);
+    const hours = Math.floor(duration / (1000 * 60 * 60));
+    
+    return hours > 0 
+      ? `${hours}h ${minutes}m ${seconds}s` 
+      : minutes > 0 
+        ? `${minutes}m ${seconds}s` 
+        : `${seconds}s`;
+  };
 
   return (
     <div className="relative w-full h-96 overflow-hidden">
@@ -110,6 +129,12 @@ const VideoPlayer = ({ videoId, proxy, onVideoEnded, isActive }: VideoPlayerProp
               Switching to the next proxy...
             </p>
           </div>
+        </div>
+      )}
+      
+      {!loading && !error && (
+        <div className="absolute top-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded-md backdrop-blur-sm z-10">
+          Proxy rotation after: {getDurationText()}
         </div>
       )}
       

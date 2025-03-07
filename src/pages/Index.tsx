@@ -7,6 +7,8 @@ import ControlPanel from "@/components/ControlPanel";
 import StatsPanel from "@/components/StatsPanel";
 import { useToast } from "@/hooks/use-toast";
 import { extractVideoId } from "@/lib/utils";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 const Index = () => {
   const { toast } = useToast();
@@ -17,6 +19,7 @@ const Index = () => {
   const [sessionsCompleted, setSessionsCompleted] = useState(0);
   const [startTime, setStartTime] = useState<number | null>(null);
   const [videoId, setVideoId] = useState<string | null>(null);
+  const [duration, setDuration] = useState(3600000); // Default to 1 hour (in milliseconds)
 
   useEffect(() => {
     const id = extractVideoId(videoUrl);
@@ -80,6 +83,13 @@ const Index = () => {
     });
   };
 
+  const handleDurationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // Convert minutes to milliseconds
+    const minutes = parseInt(e.target.value) || 60; // Default to 60 minutes if invalid
+    const ms = minutes * 60 * 1000;
+    setDuration(ms);
+  };
+
   return (
     <div className="min-h-screen bg-black text-white p-6 font-sans antialiased">
       <div className="max-w-6xl mx-auto space-y-8">
@@ -110,11 +120,28 @@ const Index = () => {
             </section>
             
             <section className="backdrop-blur-lg bg-white/5 rounded-lg border border-white/10 p-6 transition-all duration-300">
+              <div className="mb-4 space-y-2">
+                <Label htmlFor="duration" className="text-white/90">Proxy Rotation Interval (minutes)</Label>
+                <Input
+                  id="duration"
+                  type="number"
+                  min="1"
+                  max="1440" // Max 24 hours
+                  value={duration / (60 * 1000)}
+                  onChange={handleDurationChange}
+                  className="bg-white/5 border-white/20 text-white"
+                />
+                <p className="text-xs text-gray-400">
+                  Video will play for {duration / (60 * 1000)} minutes before switching proxy
+                </p>
+              </div>
+              
               <ProxyStatus
                 currentProxy={getCurrentProxy()}
                 proxyList={proxies}
                 activeIndex={currentProxyIndex}
                 isRunning={isRunning}
+                duration={duration}
               />
             </section>
           </div>
@@ -127,6 +154,7 @@ const Index = () => {
                   proxy={getCurrentProxy()}
                   onVideoEnded={handleVideoEnded}
                   isActive={isRunning}
+                  duration={duration}
                 />
               )}
               
