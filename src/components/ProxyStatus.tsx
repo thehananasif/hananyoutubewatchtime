@@ -78,7 +78,7 @@ const ProxyStatus = ({
         </div>
         <Progress 
           value={progress} 
-          className="h-0.5 bg-white/5"
+          className="h-0.5 bg-white/5" 
         />
       </div>
     </div>

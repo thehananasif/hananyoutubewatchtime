@@ -70,11 +70,7 @@ const ControlPanel = ({
         <Button
           onClick={onToggleRunning}
           disabled={isButtonDisabled}
-          className={`flex-1 transition-all duration-300 relative overflow-hidden ${
-            isRunning 
-              ? "bg-gradient-to-r from-gray-800 to-black hover:from-gray-700 hover:to-gray-900 border border-white/10 text-white" 
-              : "bg-gradient-to-r from-gray-900 to-black hover:from-black hover:to-gray-800 border border-white/20 text-white"
-          } shadow-[0_4px_14px_0_rgba(0,0,0,0.5)] before:absolute before:inset-0 before:w-full before:h-full before:bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.12),transparent_40%)] after:absolute after:bottom-0 after:h-1/3 after:w-full after:bg-gradient-to-t after:from-white/[0.08] after:to-transparent after:opacity-60`}
+          className={`flex-1 shadow-[0_4px_14px_0_rgba(0,0,0,0.5)] transition-all duration-300 relative overflow-hidden`}
         >
           <span className="relative z-10 flex items-center justify-center">
             {isRunning ? (
@@ -93,7 +89,7 @@ const ControlPanel = ({
         <Button
           onClick={onReset}
           variant="outline"
-          className="bg-black text-white border-white/20 hover:bg-black/80 transition-all duration-300 relative overflow-hidden shadow-[0_4px_14px_0_rgba(0,0,0,0.5)] before:absolute before:inset-0 before:w-full before:h-full before:bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.12),transparent_40%)] after:absolute after:bottom-0 after:h-1/3 after:w-full after:bg-gradient-to-t after:from-white/[0.08] after:to-transparent after:opacity-60"
+          className="bg-black text-white border-white/20 hover:bg-black/80 transition-all duration-300 relative overflow-hidden shadow-[0_4px_14px_0_rgba(0,0,0,0.5)]"
         >
           <span className="relative z-10">
             <RotateCcw className="w-4 h-4" />
